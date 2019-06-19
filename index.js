@@ -1,10 +1,15 @@
-var http = require('http');
-var  fs = require('fs');
+const express = require('express')
+const app = express()
 
-http.createServer(function (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.write('Hello World!');
-  res.end();
-}).listen(8080);
+app.get('/', ( req, res ) => {
+    res.sendFile(`${__dirname}/main.html`)
+});
 
-console.log('Listening at: localhost:8080');
+app.get('/about', (req, res) => {
+    res.sendFile(`${__dirname}/about.html`)
+});
+
+
+app.listen(8080, () => {
+    console.log('Listening on port 3000!')
+});
