@@ -18,7 +18,7 @@ spec:
         "beta.kubernetes.io/os": linux
       containers:
       - name: kam-d3-container
-        image: kamcicdacr.azurecr.io/datasciencekam/d3:12
+        image: kamcicdacr.azurecr.io/datasciencekam/d3:#{Build.BuildId}#
         ports:
         - containerPort: 80
         resources:
