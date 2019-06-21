@@ -20,7 +20,7 @@ spec:
       - name: kam-d3-container
         image: kamcicdacr.azurecr.io/datasciencekam/d3:#{Build.BuildId}#
         ports:
-        - containerPort: 80
+        - containerPort: 8080
         command: ["/bin/sh", "-ec", "while :; do echo '.'; sleep 5 ; done"]
         resources:
           requests:
@@ -40,5 +40,5 @@ spec:
     app: kam-d3
   type: LoadBalancer
   ports:
-  - port: 80
+  - port: 8080
     name: kam-d3-port
