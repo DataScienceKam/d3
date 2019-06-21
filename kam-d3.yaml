@@ -21,6 +21,7 @@ spec:
         image: kamcicdacr.azurecr.io/datasciencekam/d3:#{Build.BuildId}#
         ports:
         - containerPort: 80
+        command: ["/bin/sh", "-ec", "while :; do echo '.'; sleep 5 ; done"]
         resources:
           requests:
             cpu: 250m
@@ -28,6 +29,7 @@ spec:
             cpu: 500m
       imagePullSecrets:
       - name: registrysecret
+      restartPolicy: Always
 ---
 apiVersion: v1
 kind: Service
