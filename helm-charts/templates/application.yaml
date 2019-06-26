@@ -1,7 +1,7 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: {{ template "helm_charts.fullname" . }}-deployment
+  name: {{ template "helm-charts.fullname" . }}-deployment
 spec:
   replicas: 1
   strategy:
@@ -12,7 +12,7 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ template "helm_charts.fullname" . }}-kam-d3
+        app: {{ template "helm-charts.fullname" . }}-kam-d3
     spec:
       nodeSelector:
         "beta.kubernetes.io/os": linux
@@ -34,11 +34,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "helm_charts.fullname" . }}-service
+  name: {{ template "helm-charts.fullname" . }}-service
 spec:
   selector:
-    app: {{ template "helm_charts.fullname" . }}-kam-d3
+    app: {{ template "helm-charts.fullname" . }}-kam-d3
   type: LoadBalancer
   ports:
   - port: 8080
-    name: {{ template "helm_charts.fullname" . }}-kam-d3-port
+    name: {{ template "helm-charts.fullname" . }}-kam-d3-port
