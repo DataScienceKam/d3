@@ -1,0 +1,44 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "helm_charts.fullname" . }}-deployment
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5 
+  template:
+    metadata:
+      labels:
+        app: {{ template "helm_charts.fullname" . }}-kam-d3
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      containers:
+      - name: kam-d3-container
+        image: kamcicdacr.azurecr.io/datasciencekam/d3:#{Build.BuildId}#
+        ports:
+        - containerPort: 8080
+        command: ["/bin/sh", "-ec", "while :; do echo '.'; sleep 5 ; done"]
+        resources:
+          requests:
+            cpu: 250m
+          limits:
+            cpu: 500m
+      imagePullSecrets:
+      - name: registrysecret
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "helm_charts.fullname" . }}-service
+spec:
+  selector:
+    app: {{ template "helm_charts.fullname" . }}-kam-d3
+  type: LoadBalancer
+  ports:
+  - port: 8080
+    name: {{ template "helm_charts.fullname" . }}-kam-d3-port

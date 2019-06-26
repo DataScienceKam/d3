@@ -1,4 +1,5 @@
 FROM node:carbon
+#FROM python:latest
 LABEL maintainer="Kam d3 Images"
 # Create app directory
 WORKDIR /usr/src/app
@@ -9,4 +10,4 @@ COPY . .
 EXPOSE 8080
 CMD ["npm", "start"] 
 CMD ["node", "index.js"] 
-CMD python -m http.server 8080
+#CMD ["python", "-m", "http.server"]
